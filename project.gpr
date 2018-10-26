@@ -1,0 +1,14 @@
+[PROJECT]
+
+[RP:MODEL]
+1=
+
+[OPENWINDOW_1]
+FILE0=C:\Users\behra\Desktop\RES_FR\VRE_nuc\model.gms
+FILE1=C:\Users\behra\Desktop\RES_FR\VRE_nuc\model.lst
+FILE2=C:\Users\behra\Desktop\RES_FR\VRE_nuc\model.gms
+MAXIM=0
+TOP=0
+LEFT=0
+HEIGHT=906
+WIDTH=1036
