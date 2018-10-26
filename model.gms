@@ -24,8 +24,8 @@ sets     h               'all hours'                     /0*8783/
          ncomb(tec)      'non-combustible generation'    /offshore, onshore, pv, river, lake, phs, battery, nuclear/
          comb(tec)       'combustible generation techs'  /biogas, methanation/
          str(tec)        'storage technologies'          /phs, battery, methanation/
-         frr(tec)        'technologies for upward FRR'   /lake, gas, phs, battery/
-         nuc             'nuclear elec LCOE scenarios'   /2000,2250,2500,2750,3000,3250,3500,3750,4000,4250,4500/
+         frr(tec)        'technologies for upward FRR'   /lake, gas, phs, battery, nuclear/
+         nuc             'nuclear elec LCOE scenarios'   /2000,2500,3000,3500,4000,4500/
 ;
 first(h) = ord(h)=1;
 last(h) = ord(h)=card(h);
@@ -239,7 +239,7 @@ summary_csv.pc=5;
 put 'scenario', 'cost', 'capa_offshore', 'capa_onshore', 'capa_PV', 'capa_nuclear', 'gene_offshore', 'gene_onshore', 'gene_PV', 'gene_nuclear'/;
 
 *loop starts
-loop(test,
+loop(nuc,
          capex('nuclear') = nuc_capex(nuc);
          fOM('nuclear') = nuc_fOM(nuc);
          vOM('nuclear') = nuc_vOM;
@@ -256,7 +256,7 @@ loop(test,
          display CAPACITY.l;
 *-------------------------------------------------------------------------------
          put summary_text;
-         put ' the main results for ' test.tl ' as nunclear electricity CAPEX scenario' //
+         put ' the main results for ' nuc.tl ' as nunclear electricity CAPEX scenario' //
          //
          'I)Overall investment cost is' cost.l 'b€' //
          //
@@ -293,11 +293,11 @@ loop(test,
          hourly_generation.pc=5;
          put 'scenario', 'hour'; loop(tec, put tec.tl;) put 'demand' , 'ElecStr' , 'Pump' , 'CH4'/ ;
          loop (h,
-         put test.tl, h.tl; loop(tec, put gene.l(tec,h);) put demand(h), nSTORAGE('PHS',h), nSTORAGE('battery',h), nSTORAGE('methanation',h)/
+         put nuc.tl, h.tl; loop(tec, put gene.l(tec,h);) put demand(h), nSTORAGE('PHS',h), nSTORAGE('battery',h), nSTORAGE('methanation',h)/
          ;);
 *-------------------------------------------------------------------------------
          put summary_csv;;
-         put test.tl, COST.l, CAPA.l('offshore'), CAPA.l('onshore') , CAPA.l('pv'), CAPA.l('nuclear'), gene_tec('offshore'),gene_tec('onshore'), gene_tec('pv') , gene_tec('nuclear') /
+         put nuc.tl, COST.l, CAPA.l('offshore'), CAPA.l('onshore') , CAPA.l('pv'), CAPA.l('nuclear'), gene_tec('offshore'),gene_tec('onshore'), gene_tec('pv') , gene_tec('nuclear') /
 ; );
 *loop ends
 *-------------------------------------------------------------------------------
